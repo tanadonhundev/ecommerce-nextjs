@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
 export default function ContactPage() {
@@ -8,9 +9,12 @@ export default function ContactPage() {
         <h2 className="text-3xl text-blue-700">ติดต่อเรา</h2>
         <p className="font-sarabun text-2xl">สวัสดี contact page</p>
         <p className="font-k2d text-2xl">สวัสดี contact page</p>
-        <Button asChild>
-          <Link href={"/"}>go home</Link>
-        </Button>
+        <Separator />
+        <div className="m-10">
+          <Button asChild>
+            <Link href={"/"}>go home</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
