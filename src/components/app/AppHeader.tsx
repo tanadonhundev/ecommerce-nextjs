@@ -1,9 +1,10 @@
 import { ShoppingCart } from "lucide-react";
+import Link from "next/link";
 
 const AppHeader = () => {
   return (
     <header>
-      <div className="fixed inset-x-0 top-0 z-50">
+      <div className="fixed inset-x-0 top-0 z-50 bg-rose-500/50">
         <div className="max-w-4xl mx-auto flex h-14 items-center justify-between gap-12 px-4 backdrop-blur-xs transition">
           <div className="absolute inset-x-0 top-full h-px bg-zinc-900/7.5 transition"></div>
           <div className="flex items-center gap-5">
@@ -40,23 +41,23 @@ const AppHeader = () => {
           </div>
           <div className="flex items-center gap-5">
             <div className="flex gap-1 p-1 border border-black rounded-sm">
-                <ShoppingCart className="h-5 w-5" />
-                <span className="text-sm">10</span>
+              <ShoppingCart className="h-5 w-5" />
+              <span className="text-sm">10</span>
             </div>
             <div className="flex gap-4">
-              <a
+              <Link
                 className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-zinc-900 px-3 py-1 text-sm/6 font-medium text-white transition hover:bg-zinc-700"
-                href="#"
+                href="/contact"
               >
                 ติดต่อเรา
-              </a>
+              </Link>
             </div>
-            <a
+            <Link
               className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-zinc-900 px-3 py-1 text-sm/6 font-medium text-white transition hover:bg-zinc-700"
-              href="#"
+              href="/login"
             >
               เข้าระบบ
-            </a>
+            </Link>
           </div>
         </div>
       </div>

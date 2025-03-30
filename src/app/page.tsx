@@ -1,9 +1,6 @@
-import AppHeader from "@/components/app/AppHeader";
-
 export default function HomePage() {
   return (
     <>
-      <AppHeader />
       <div className="relative flex h-full flex-col px-4 pt-14">
         <main className="flex-auto">
           <article className="flex h-full flex-col pt-16 pb-10">
