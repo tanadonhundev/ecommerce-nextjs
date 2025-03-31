@@ -47,8 +47,9 @@ const AppHeader = async () => {
             </svg>
           </div>
           <div className="flex items-center gap-5">
-            {session && <div className="flex gap-4">{session.user.name}</div>}
-
+            {session && (
+              <div className="flex gap-4"> ยินดีต้อนรับคุณ {session.user.name}</div>
+            )}
             <div className="flex gap-1 p-1 border border-black rounded-sm">
               <ShoppingCart className="h-5 w-5" />
               <span className="text-sm">10</span>
@@ -63,10 +64,16 @@ const AppHeader = async () => {
             </div>
             {!session ? (
               <div className="flex gap-4">
-                <Link className="..." href="/login">
+                <Link
+                  className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-zinc-900 px-3 py-1 text-sm/6 font-medium text-white transition hover:bg-zinc-700"
+                  href="/login"
+                >
                   เข้าสู่ระบบ
                 </Link>
-                <Link className="..." href="/signup">
+                <Link
+                  className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-zinc-900 px-3 py-1 text-sm/6 font-medium text-white transition hover:bg-zinc-700"
+                  href="/singup"
+                >
                   สมัครสมาชิก
                 </Link>
               </div>
