@@ -1,7 +1,14 @@
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import AppLogoutBtn from "./AppLogoutBtn";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-const AppHeader = () => {
+const AppHeader = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   return (
     <header>
       <div className="fixed inset-x-0 top-0 z-50 bg-rose-500/50">
@@ -40,6 +47,8 @@ const AppHeader = () => {
             </svg>
           </div>
           <div className="flex items-center gap-5">
+            {session && <div className="flex gap-4">{session.user.name}</div>}
+
             <div className="flex gap-1 p-1 border border-black rounded-sm">
               <ShoppingCart className="h-5 w-5" />
               <span className="text-sm">10</span>
@@ -51,19 +60,19 @@ const AppHeader = () => {
               >
                 ติดต่อเรา
               </Link>
-              <Link
-                className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-zinc-900 px-3 py-1 text-sm/6 font-medium text-white transition hover:bg-zinc-700"
-                href="/login"
-              >
-                เข้าระบบ
-              </Link>
-              <Link
-                className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-gray-700 px-3 py-1 text-sm/6 font-medium text-white transition hover:bg-zinc-700"
-                href="/singup"
-              >
-                สมัครสมาชิก
-              </Link>
             </div>
+            {!session ? (
+              <div className="flex gap-4">
+                <Link className="..." href="/login">
+                  เข้าสู่ระบบ
+                </Link>
+                <Link className="..." href="/signup">
+                  สมัครสมาชิก
+                </Link>
+              </div>
+            ) : (
+              <AppLogoutBtn />
+            )}
           </div>
         </div>
       </div>
