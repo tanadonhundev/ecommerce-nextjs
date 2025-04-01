@@ -24,16 +24,8 @@ import {
   FormMessage,
 } from "./ui/form";
 import { IconLoader } from "@tabler/icons-react";
-
-//zod validation
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: "ป้อนข้อมูลอีเมลด้วย" })
-    .email({ message: "รูปแบบอีเมลไม่ถูกต้อง" })
-    .trim(),
-  password: z.string().min(4, { message: "รหัสผ่านต้องมี 4 ตัวขึ้นไป" }).trim(),
-});
+import { toast } from "sonner";
+import { loginSchema } from "@/validations";
 
 export function LoginForm({
   className,
@@ -41,9 +33,8 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const router = useRouter();
 
-  // เอา type มาจาก formSchema
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -56,7 +47,7 @@ export function LoginForm({
   }, [form]);
 
   //login button
-  const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {
+  const handleOnSubmit = async (data: z.infer<typeof loginSchema>) => {
     await authClient.signIn.email(
       {
         email: data.email,
@@ -78,47 +69,17 @@ export function LoginForm({
             router.replace("/");
           }
           // router.replace("/");
+          toast.success("เข้าสู่ระบบสำเร็จ");
+          toast.success("Toast has been updated", {});
         },
         onError: (ctx) => {
           // display the error message
-          alert(ctx.error.message);
+          toast.error(ctx.error.message);
         },
       }
     );
   };
 
-  //login handcode
-  const handleLogin = async () => {
-    await authClient.signIn.email(
-      {
-        email: "abc1@gmail.com",
-        password: "112233",
-        // callbackURL:"/"
-      },
-      {
-        onRequest: (ctx) => {
-          //show loading
-          console.log("loading", ctx.body);
-        },
-        onSuccess: async (ctx) => {
-          //redirect to the dashboard or sign in page
-          console.log("success", ctx.data);
-          // get session (client side)
-          const { data: session } = await authClient.getSession();
-          if (session?.user.role === "admin") {
-            router.replace("/dashboard");
-          } else if (session?.user.role === "user") {
-            router.replace("/");
-          }
-          // router.replace("/");
-        },
-        onError: (ctx) => {
-          // display the error message
-          alert(ctx.error.message);
-        },
-      }
-    );
-  };
   const handleLoginFacebook = async () => {
     await authClient.signIn.social(
       {
@@ -203,6 +164,13 @@ export function LoginForm({
                       "Log In"
                     )}
                   </Button>
+                  <Button
+                    variant="default"
+                    className="w-full"
+                    onClick={handleLoginFacebook}
+                  >
+                    Login with facebook
+                  </Button>
                 </div>
               </div>
               <div className="mt-4 text-center text-sm">
@@ -213,16 +181,6 @@ export function LoginForm({
               </div>
             </form>
           </Form>
-          <Button variant="default" className="w-full" onClick={handleLogin}>
-            Login with handCode
-          </Button>
-          <Button
-            variant="default"
-            className="w-full"
-            onClick={handleLoginFacebook}
-          >
-            Login with facebook
-          </Button>
         </CardContent>
       </Card>
     </div>

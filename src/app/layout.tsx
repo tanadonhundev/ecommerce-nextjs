@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { kanit } from "./fonts";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "ThaNaDev",
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${kanit.className}`}>{children}</body>
+      <body className={`${kanit.className}`}>
+        {children}
+        <Toaster richColors position="bottom-center" />
+      </body>
     </html>
   );
 }
