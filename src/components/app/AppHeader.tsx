@@ -8,7 +8,7 @@ const AppHeader = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-
+  console.log(session?.session.expiresAt)
   return (
     <header>
       <div className="fixed inset-x-0 top-0 z-50 bg-rose-500/50">

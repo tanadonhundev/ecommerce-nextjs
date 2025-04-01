@@ -9,8 +9,8 @@ const SingUpForm = () => {
   const handleSingUp = async () => {
     await authClient.signUp.email(
       {
-        email: "tanadon@gmail.com",
-        password: "111111111",
+        email: "abc1@gmail.com",
+        password: "112233",
         name: "admin admin",
       },
       {

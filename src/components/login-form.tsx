@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +21,7 @@ export function LoginForm({
   const handleLogin = async () => {
     await authClient.signIn.email(
       {
-        email: "abc@gmail.com",
+        email: "abc1@gmail.com",
         password: "112233",
         // callbackURL:"/"
       },
@@ -34,6 +34,29 @@ export function LoginForm({
           //redirect to the dashboard or sign in page
           console.log("success", ctx.data);
           router.replace("/");
+        },
+        onError: (ctx) => {
+          // display the error message
+          alert(ctx.error.message);
+        },
+      }
+    );
+  };
+  const handleLogin1 = async () => {
+    await authClient.signIn.social(
+      {
+        provider: "facebook",
+        // callbackURL: "http://localhost:9999/auth/callback",
+      },
+      {
+        onRequest: (ctx) => {
+          //show loading
+          console.log("loading", ctx.body);
+        },
+        onSuccess: (ctx) => {
+          //redirect to the dashboard or sign in page
+          console.log("success", ctx.data);
+          //  router.replace("/login");
         },
         onError: (ctx) => {
           // display the error message
@@ -92,6 +115,9 @@ export function LoginForm({
             </div>
           </form>
           <Button variant="default" className="w-full" onClick={handleLogin}>
+            Login with Google
+          </Button>
+          <Button variant="default" className="w-full" onClick={handleLogin1}>
             Login with Google
           </Button>
         </CardContent>

@@ -21,5 +21,16 @@ export const auth = betterAuth({
     autoSignIn: false,
     requireEmailVerification: false,
     minPasswordLength: 4,
+    sendVerificationEmail: true,
+  },
+  socialProviders: {
+    facebook: {
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+    },
+  },
+  session: {
+    expiresIn: 60 * 15, // ✅ 15 นาที (900 วินาที)
+    updateAge: 60 * 1, // ✅ อัปเดตทุก 1 นาที (60 วินาที)
   },
 });
