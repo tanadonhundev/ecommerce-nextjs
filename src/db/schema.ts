@@ -4,6 +4,7 @@ import {
   text,
   timestamp,
   boolean,
+  mysqlEnum,
 } from "drizzle-orm/mysql-core";
 
 export const user = mysqlTable("user", {
@@ -12,6 +13,7 @@ export const user = mysqlTable("user", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   emailVerified: boolean("email_verified").notNull(),
   image: text("image"),
+  role: mysqlEnum(["user", "admin"]).default("user"),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });

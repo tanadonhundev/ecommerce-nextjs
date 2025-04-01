@@ -8,7 +8,7 @@ const AppHeader = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  console.log(session?.session.expiresAt)
+
   return (
     <header>
       <div className="fixed inset-x-0 top-0 z-50 bg-rose-500/50">
@@ -48,7 +48,10 @@ const AppHeader = async () => {
           </div>
           <div className="flex items-center gap-5">
             {session && (
-              <div className="flex gap-4"> ยินดีต้อนรับคุณ {session.user.name}</div>
+              <div className="flex gap-4">
+                {" "}
+                ยินดีต้อนรับคุณ {session.user.name} {session.user.role}
+              </div>
             )}
             <div className="flex gap-1 p-1 border border-black rounded-sm">
               <ShoppingCart className="h-5 w-5" />

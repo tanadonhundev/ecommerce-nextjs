@@ -18,10 +18,11 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"div">) {
   const router = useRouter();
+
   const handleLogin = async () => {
     await authClient.signIn.email(
       {
-        email: "abc1@gmail.com",
+        email: "admin@gmail.com",
         password: "112233",
         // callbackURL:"/"
       },
@@ -30,10 +31,17 @@ export function LoginForm({
           //show loading
           console.log("loading", ctx.body);
         },
-        onSuccess: (ctx) => {
+        onSuccess: async (ctx) => {
           //redirect to the dashboard or sign in page
           console.log("success", ctx.data);
-          router.replace("/");
+          // get session (client side)
+          const { data: session } = await authClient.getSession();
+          if (session?.user.role === "admin") {
+            router.replace("/dashboard");
+          } else if (session?.user.role === "user") {
+            router.replace("/");
+          }
+          // router.replace("/");
         },
         onError: (ctx) => {
           // display the error message
