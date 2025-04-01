@@ -22,7 +22,7 @@ export function LoginForm({
   const handleLogin = async () => {
     await authClient.signIn.email(
       {
-        email: "admin@gmail.com",
+        email: "abc1@gmail.com",
         password: "112233",
         // callbackURL:"/"
       },

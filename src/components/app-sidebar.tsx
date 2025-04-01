@@ -32,12 +32,14 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { authClient } from "@/lib/auth-client";
 
 const data = {
   user: {
     name: "ThaNaDev",
     email: "thanadev@example.com",
     avatar: "/avatars/profile1.jpg",
+    role: "sdsadad",
   },
   navMain: [
     {
@@ -151,6 +153,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: session } = authClient.useSession(); //hook
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -175,7 +178,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {/* <NavUser user={data.user} /> */}
+        {session && (
+          <NavUser
+            user={{
+              name: session.user.name,
+              email: session.user.email,
+              avatar: session.user.image!,
+              role: session.user.role!,
+            }}
+          />
+        )}
       </SidebarFooter>
     </Sidebar>
   );
