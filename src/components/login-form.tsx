@@ -70,7 +70,6 @@ export function LoginForm({
           }
           // router.replace("/");
           toast.success("เข้าสู่ระบบสำเร็จ");
-          toast.success("Toast has been updated", {});
         },
         onError: (ctx) => {
           // display the error message
@@ -84,7 +83,6 @@ export function LoginForm({
     await authClient.signIn.social(
       {
         provider: "facebook",
-        // callbackURL: "http://localhost:9999/auth/callback",
       },
       {
         onRequest: (ctx) => {
@@ -94,7 +92,6 @@ export function LoginForm({
         onSuccess: (ctx) => {
           //redirect to the dashboard or sign in page
           console.log("success", ctx.data);
-          //  router.replace("/login");
         },
         onError: (ctx) => {
           // display the error message

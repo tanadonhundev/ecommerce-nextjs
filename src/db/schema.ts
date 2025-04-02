@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   mysqlTable,
   varchar,
@@ -5,6 +6,9 @@ import {
   timestamp,
   boolean,
   mysqlEnum,
+  int,
+  decimal,
+  primaryKey,
 } from "drizzle-orm/mysql-core";
 
 export const user = mysqlTable("user", {
@@ -57,3 +61,31 @@ export const verification = mysqlTable("verification", {
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),
 });
+
+export const product = mysqlTable(
+  "product",
+  {
+    id: int().autoincrement().notNull(),
+    title: varchar({ length: 255 }).notNull(),
+    price: decimal({ precision: 10, scale: 2 }).notNull(),
+    createdAt: timestamp("created_at", { mode: "string" }).default(
+      sql`(now())`
+    ),
+  },
+  (table) => [primaryKey({ columns: [table.id], name: "product_id" })]
+);
+
+export const productImage = mysqlTable(
+  "product_image",
+  {
+    id: int().autoincrement().notNull(),
+    productId: int("product_id")
+      .notNull()
+      .references(() => product.id, { onDelete: "cascade" }),
+    imageName: text("image_name").notNull(),
+    createdAt: timestamp("created_at", { mode: "string" }).default(
+      sql`(now())`
+    ),
+  },
+  (table) => [primaryKey({ columns: [table.id], name: "product_image_id" })]
+);
