@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ url: session.url });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to create checkout session" },

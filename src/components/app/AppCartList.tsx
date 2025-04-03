@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export default function AppCartList() {
   const router = useRouter();
@@ -23,10 +24,14 @@ export default function AppCartList() {
     return <p className="text-center mt-20">ตะกร้าสินค้าว่างเปล่า 🛒</p>;
   }
 
-  console.log(items);
-
   const handleCheckout = async () => {
     try {
+      const { data: session } = await authClient.getSession();
+      if (!session) {
+        router.replace("/login");
+        return;
+      }
+      localStorage.setItem("paymentCompleted", "true");
       const response = await fetch("/api/checkout_sessions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
