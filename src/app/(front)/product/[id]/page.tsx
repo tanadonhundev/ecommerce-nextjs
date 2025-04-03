@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 
 import { getProductByIdService } from "@/services/product-service";
-import { AppCardBtn } from "@/components/app/AppCardBtn";
+import { AppCartBtn } from "@/components/app/AppCartBtn";
 // import CartButton from "@/components/app/CartButton";
 
 export default async function ProductDetailPage({
@@ -47,7 +47,7 @@ export default async function ProductDetailPage({
         <CarouselNext />
       </Carousel>
       <hr />
-      <AppCardBtn product={product} />
+      <AppCartBtn product={product} />
     </div>
   );
 }

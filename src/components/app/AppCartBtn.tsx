@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { useCartStore } from "@/lib/cart-store";
 //rafc if page np ***
 
-export const AppCardBtn = ({ product }: any) => {
+export const AppCartBtn = ({ product }: any) => {
   const addItem = useCartStore((state) => state.addItem);
   const handleAdd = () => {
     addItem({

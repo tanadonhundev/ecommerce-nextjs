@@ -3,7 +3,7 @@ import Link from "next/link";
 import AppLogoutBtn from "./AppLogoutBtn";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { AppCardTotal } from "./AppCardTotal";
+import { AppCartTotal } from "./AppCartTotal";
 
 const AppHeader = async () => {
   const session = await auth.api.getSession({
@@ -58,7 +58,7 @@ const AppHeader = async () => {
             <Link href={"/cart"}>
               <div className="flex gap-1 p-1 border border-black rounded-sm">
                 <ShoppingCart className="h-5 w-5" />
-                <AppCardTotal />
+                <AppCartTotal />
               </div>
             </Link>
             <div className="flex gap-4">

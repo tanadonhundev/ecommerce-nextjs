@@ -3,7 +3,7 @@
 import { useCartStore } from "@/lib/cart-store"
 import { useEffect, useState } from "react";
 
-export const AppCardTotal = () => {
+export const AppCartTotal = () => {
   const total = useCartStore((state) => state.totalItems());  
   const [isMounted, setIsMounted] = useState(false);
 
