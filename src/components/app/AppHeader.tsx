@@ -3,6 +3,7 @@ import Link from "next/link";
 import AppLogoutBtn from "./AppLogoutBtn";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { AppCardTotal } from "./AppCardTotal";
 
 const AppHeader = async () => {
   const session = await auth.api.getSession({
@@ -54,10 +55,12 @@ const AppHeader = async () => {
                 ยินดีต้อนรับคุณ {session.user.name} {session.user.role}
               </div>
             )}
-            <div className="flex gap-1 p-1 border border-black rounded-sm">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="text-sm">10</span>
-            </div>
+            <Link href={"/cart"}>
+              <div className="flex gap-1 p-1 border border-black rounded-sm">
+                <ShoppingCart className="h-5 w-5" />
+                <AppCardTotal />
+              </div>
+            </Link>
             <div className="flex gap-4">
               <Link
                 className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-zinc-900 px-3 py-1 text-sm/6 font-medium text-white transition hover:bg-zinc-700"
