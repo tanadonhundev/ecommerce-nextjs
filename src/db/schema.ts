@@ -89,3 +89,13 @@ export const productImage = mysqlTable(
   },
   (table) => [primaryKey({ columns: [table.id], name: "product_image_id" })]
 );
+
+export const orders = mysqlTable("orders", {
+  id: int("id").autoincrement().primaryKey(),
+  orderId: varchar("order_id", { length: 255 }).notNull().unique(),
+  // userId: varchar("user_id", { length: 255 }).notNull(),
+  totalAmount: int("total_amount").notNull(),
+  session_id: varchar({ length: 255 }).notNull(),
+  status: varchar("status", { length: 50 }).default("pending"),
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow(),
+});
