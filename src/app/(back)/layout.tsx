@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import "../globals.css";
-import { kanit } from "../fonts";
 import { Toaster } from "@/components/ui/sonner";
+import DLayout from "./dashboard/components/DLayout";
+import { kanit } from "../fonts";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -16,7 +17,7 @@ export default function DashboardLayout({
   return (
     <html lang="en">
       <body className={`${kanit.className}`}>
-        {children}
+        <DLayout>{children}</DLayout>
         <Toaster richColors position="bottom-center" />
       </body>
     </html>
