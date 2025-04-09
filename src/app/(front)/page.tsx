@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function HomePage() {
   return (
     <>
@@ -74,7 +76,7 @@ export default function HomePage() {
                 voluptate, accusamus dignissimos! Aliquam, nesciunt.
               </p>
               <div className="mt-6 mb-16 flex gap-3">
-                <a
+                <Link
                   className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-zinc-900 px-3 py-1 text-sm/6 font-medium text-white transition hover:bg-zinc-700"
                   href="/product"
                 >
@@ -92,7 +94,7 @@ export default function HomePage() {
                       d="m11.5 6.5 3 3.5m0 0-3 3.5m3-3.5h-9"
                     ></path>
                   </svg>
-                </a>
+                </Link>
                 <a
                   className="inline-flex justify-center gap-0.5 overflow-hidden rounded-full px-3 py-1 text-sm/6 font-medium text-zinc-700 ring-1 ring-zinc-900/10 transition ring-inset hover:bg-zinc-900/2.5 hover:text-zinc-900"
                   href="/sdks"
