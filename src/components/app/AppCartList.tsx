@@ -13,8 +13,20 @@ import {
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../ui/alert-dialog";
+import { useState } from "react";
 
 export default function AppCartList() {
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
@@ -23,6 +35,15 @@ export default function AppCartList() {
   if (items.length === 0) {
     return <p className="text-center mt-20">ตะกร้าสินค้าว่างเปล่า 🛒</p>;
   }
+
+  const handelPayment = async () => {
+    const { data: session } = await authClient.getSession();
+    if (session) {
+      setOpen(true);
+    } else {
+      router.replace("/login");
+    }
+  };
 
   const handleCheckout = async () => {
     try {
@@ -82,7 +103,29 @@ export default function AppCartList() {
       </Table>
 
       <div className="text-right mt-4 font-semibold">
-        รวมทั้งหมด: {total.toLocaleString()}฿
+        <div> รวมทั้งหมด: {total.toLocaleString()}฿</div>
+        <div>
+          <Button onClick={handelPayment}>ชำระเงิน</Button>
+          <div>
+            <AlertDialog open={open}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>สแกนจ่ายด้วย OR Code</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel onClick={() => setOpen(false)}>
+                    ยกเลิก
+                  </AlertDialogCancel>
+                  <AlertDialogAction>ยืนยันการชำระเงิน</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        </div>
       </div>
 
       <div className="text-right mt-6">
