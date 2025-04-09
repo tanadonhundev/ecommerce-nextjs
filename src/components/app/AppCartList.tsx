@@ -26,6 +26,7 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import AppPromptPayQRCode from "./AppPromptPayQRCode";
 
 export default function AppCartList() {
   const [open, setOpen] = useState(false);
@@ -33,7 +34,7 @@ export default function AppCartList() {
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
   const clearItem = useCartStore((state) => state.clearCart);
-  
+
   const total = useCartStore((state) => state.totalPrice());
 
   if (items.length === 0) {
@@ -138,9 +139,8 @@ export default function AppCartList() {
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>สแกนจ่ายด้วย OR Code</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
+                  <AlertDialogDescription className="justify-items-center">
+                    <AppPromptPayQRCode mobileNo="0950534827" amount={total} />
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

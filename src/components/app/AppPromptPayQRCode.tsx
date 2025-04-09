@@ -6,7 +6,7 @@ import { QRCodeCanvas } from "qrcode.react";
 type AppPromptPayQRCodeProps = {
   mobileNo: string;
   amount: number;
-  message: string;
+  message?: string;
 };
 const AppPromptPayQRCode = ({
   mobileNo,
