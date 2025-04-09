@@ -1,7 +1,9 @@
+import DProduct from "../components/DProduct";
+
 export default function DashboardProductPage() {
   return (
-    <main>
-      hello product page
-    </main>
+    <>
+      <DProduct />
+    </>
   );
 }
