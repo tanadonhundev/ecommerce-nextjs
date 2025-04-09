@@ -24,12 +24,16 @@ import {
   AlertDialogTitle,
 } from "../ui/alert-dialog";
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
 
 export default function AppCartList() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
+  const clearItem = useCartStore((state) => state.clearCart);
+  
   const total = useCartStore((state) => state.totalPrice());
 
   if (items.length === 0) {
@@ -48,7 +52,21 @@ export default function AppCartList() {
   const handleConfirmPlayment = async () => {
     const { data: session } = await authClient.getSession();
     if (session) {
-      console.log("testset");
+      const orders = items.map((item) => {
+        return {
+          userId: session.user.id,
+          price: item.price,
+          productId: item.productId,
+          qty: item.qty,
+          status: "paid",
+        };
+      });
+      const response = await axios.post("/api/order", orders);
+      if (response.status === 201) {
+        clearItem();
+        toast.success(response.data.message);
+        router.replace("/product");
+      }
     } else {
       router.replace("/login");
     }
