@@ -45,6 +45,15 @@ export default function AppCartList() {
     }
   };
 
+  const handleConfirmPlayment = async () => {
+    const { data: session } = await authClient.getSession();
+    if (session) {
+      console.log("testset");
+    } else {
+      router.replace("/login");
+    }
+  };
+
   const handleCheckout = async () => {
     try {
       const { data: session } = await authClient.getSession();
@@ -120,7 +129,9 @@ export default function AppCartList() {
                   <AlertDialogCancel onClick={() => setOpen(false)}>
                     ยกเลิก
                   </AlertDialogCancel>
-                  <AlertDialogAction>ยืนยันการชำระเงิน</AlertDialogAction>
+                  <AlertDialogAction onClick={handleConfirmPlayment}>
+                    ยืนยันการชำระเงิน
+                  </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>

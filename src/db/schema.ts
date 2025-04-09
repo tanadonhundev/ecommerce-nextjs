@@ -99,3 +99,16 @@ export const orders = mysqlTable("orders", {
   status: varchar("status", { length: 50 }).default("pending"),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow(),
 });
+
+export const order = mysqlTable("order", {
+  id: int().autoincrement().notNull(),
+  userId: varchar("user_id", { length: 36 }).notNull().references(() => user.id),
+  productId: int("product_id").notNull().references(() => product.id),
+  price: decimal({ precision: 10, scale: 2 }).notNull(),
+  qty: int({ unsigned: true }).notNull(),
+  status: mysqlEnum(['pending','paid','delivered']),
+  createdAt: timestamp("created_at", { mode: 'string' }).default(sql`(now())`),
+},
+(table) => [
+  primaryKey({ columns: [table.id], name: "order_id"}),
+]);
