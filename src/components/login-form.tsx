@@ -26,11 +26,13 @@ import {
 import { IconLoader } from "@tabler/icons-react";
 import { toast } from "sonner";
 import { loginSchema } from "@/validations";
+import { useTranslations } from "next-intl";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const t = useTranslations("error");
   const router = useRouter();
 
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -72,8 +74,12 @@ export function LoginForm({
           toast.success("เข้าสู่ระบบสำเร็จ");
         },
         onError: (ctx) => {
+          console.log(ctx.error);
           // display the error message
-          toast.error(ctx.error.message);
+          const errorMessage =
+            t("INVALID_EMAIL_OR_PASSWORD") || "Invalid email or password";
+
+          toast.error(errorMessage);
         },
       }
     );

@@ -1,6 +1,10 @@
+"use client";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "@/components/app/LanguageSwitcher";
 
 export default function HomePage() {
+  const t = useTranslations();
   return (
     <>
       <div className="relative flex h-full flex-col px-4 pt-14">
@@ -131,6 +135,8 @@ export default function HomePage() {
             </div>
           </article>
         </main>
+        <LanguageSwitcher />
+        <h1>{t("greeting")}</h1>
       </div>
     </>
   );
